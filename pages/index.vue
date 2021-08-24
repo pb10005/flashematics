@@ -18,6 +18,7 @@
         <v-btn text @click="$router.push(`/deck/edit?deck=${item._id}`)"
           >Edit</v-btn
         >
+        <v-btn text @click="deleteDeck(item)">Delete</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -29,6 +30,15 @@ export default {
       const decks = localStorage.getItem("decks");
       if (!decks) return [];
       else return JSON.parse(decks);
+    },
+  },
+  methods: {
+    deleteDeck({ _id }) {
+      let decks = localStorage.getItem("decks");
+      if (!decks) return;
+      decks = JSON.parse(decks);
+      decks = decks.filter((x) => x._id !== _id);
+      localStorage.setItem("decks", JSON.stringify(decks));
     },
   },
 };
