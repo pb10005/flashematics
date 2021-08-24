@@ -5,7 +5,7 @@
     <v-btn color="success" block @click="flip">Flip</v-btn>
     <v-card class="d-flex justify-center pa-2" elevation="0">
       <v-btn @click="prev">Prev</v-btn>
-      <p class="pa-2">{{currentIndex + 1}}/{{cards? deck.length: ""}}</p>
+      <p class="pa-2">{{ currentIndex + 1 }}/{{ deckLength }}</p>
       <v-btn @click="next">Next</v-btn>
     </v-card>
   </div>
@@ -20,11 +20,15 @@ export default {
   },
   computed: {
     deck() {
-      if(!this.cards) return [];
-      return this.cards.filter(x => x.deck === this.$route.query.deck);
+      const cards = localStorage.getItem("cards");
+      if (!cards) return [];
+      return JSON.parse(cards).filter((x) => x.deck === this.$route.query.deck);
+    },
+    deckLength() {
+      return this.deck.length;
     },
     currentCard() {
-      if (!this.deck) return { head: "none", tail: "none" };
+      if (this.deck.length === 0) return { head: "none", tail: "none" };
       if (this.deck.length >= 1) return this.deck[this.currentIndex];
       else return { head: "none", tail: "none" };
     },

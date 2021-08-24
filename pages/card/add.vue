@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-btn icon @click="$router.push(`/deck/edit?deck=${$route.query.deck}`)"><v-icon>mdi-arrow-left</v-icon></v-btn>
+    <v-btn icon @click="$router.push(`/deck/edit?deck=${$route.query.deck}`)"
+      ><v-icon>mdi-arrow-left</v-icon></v-btn
+    >
     <div>
       <h2>Preview</h2>
       <HeadCard @click="flip" v-show="isHead" :content="newCard.head" />
@@ -13,6 +15,7 @@
   </div>
 </template>
 <script>
+import { v4 as uuidv4 } from "uuid";
 export default {
   data() {
     return {
@@ -25,21 +28,21 @@ export default {
   },
   methods: {
     addCard() {
-      if(!this.$route.query
-      || !this.newCard.head) return;
+      if (!this.$route.query || !this.newCard.head) return;
       let cards = localStorage.getItem("cards");
-      if(!cards) {
+      if (!cards) {
         cards = [];
       } else {
         cards = JSON.parse(cards);
       }
 
       cards.push({
+        _id: uuidv4(),
         deck: this.$route.query.deck,
         head: this.newCard.head,
-        tail: this.newCard.tail
-        });
-      
+        tail: this.newCard.tail,
+      });
+
       localStorage.setItem("cards", JSON.stringify(cards));
 
       this.newCard = {

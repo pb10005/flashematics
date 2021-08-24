@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-btn icon @click="$router.push(`/`)"><v-icon>mdi-arrow-left</v-icon></v-btn>
+    <v-btn icon @click="$router.push(`/`)"
+      ><v-icon>mdi-arrow-left</v-icon></v-btn
+    >
     <div>
       <v-subheader>Add deck</v-subheader>
       <v-text-field label="name" v-model="newDeck.name"></v-text-field>
@@ -10,6 +12,7 @@
   </div>
 </template>
 <script>
+import { v4 as uuidv4 } from "uuid";
 export default {
   data() {
     return {
@@ -21,18 +24,19 @@ export default {
   },
   methods: {
     addDeck() {
-      if(!this.newDeck.name) return;
+      if (!this.newDeck.name) return;
 
       let decks = localStorage.getItem("decks");
-      if(!decks) {
+      if (!decks) {
         decks = [];
       } else {
         decks = JSON.parse(decks);
       }
       decks.push({
+        _id: uuidv4(),
         name: this.newDeck.name,
-        description: this.newDeck.description
-        });
+        description: this.newDeck.description,
+      });
 
       localStorage.setItem("decks", JSON.stringify(decks));
 

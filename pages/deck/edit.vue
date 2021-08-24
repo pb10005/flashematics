@@ -1,17 +1,19 @@
 <template>
   <div>
-  <v-card notification dark color="primary">
-    <v-card-title>
-      {{deck.name}}
-    </v-card-title>
-    <v-card-actions>
-      <v-btn text @click="$router.push(`/card/add?deck=${$route.query.deck}`)">Add Card</v-btn>
-    </v-card-actions>
-  </v-card>
+    <v-card notification dark color="primary">
+      <v-card-title>
+        {{ deck.name }}
+      </v-card-title>
+      <v-card-actions>
+        <v-btn text @click="$router.push(`/card/add?deck=${$route.query.deck}`)"
+          >Add Card</v-btn
+        >
+      </v-card-actions>
+    </v-card>
     <v-card v-for="(item, index) in cardList" :key="index">
       <v-card-text>
-        <span>{{item.head}}</span>
-        <span>{{item.tail}}</span>
+        <span>{{ item.head }}</span>
+        <span>{{ item.tail }}</span>
       </v-card-text>
       <v-card-actions>
         <v-btn text>Edit</v-btn>
@@ -23,19 +25,29 @@
 <script>
 export default {
   computed: {
+    decks() {
+      const decks = localStorage.getItem("decks");
+      if (!decks) return [];
+      else return JSON.parse(decks);
+    },
     deck() {
-      if(!localStorage.decks) return {name: "none"};
-      return localStorage.decks.find(x => x._id === this.$route.query.deck);
+      if (this.decks.length === 0) return { name: "none" };
+      return this.decks.find((x) => x._id === this.$route.query.deck);
     },
     cardList() {
-      if(!localStorage.cards) return [];
-      return localStorage.cards.filter(x => x.deck === this.$route.query.deck);
-    }
+      const cards = localStorage.getItem("cards");
+      if (!cards) return [];
+      return JSON.parse(cards).filter((x) => x.deck === this.$route.query.deck);
+    },
   },
   methods: {
-    deleteCard({_id}) {
-      console.log(_id);
-    }
-  }
+    deleteCard({ _id }) {
+      let cards = localStorage.getItem("cards");
+      if (!cards) return;
+      cards = JSON.parse(cards);
+      cards = cards.filter((x) => x._id !== _id);
+      localStorage.setItem("cards", JSON.stringify(cards));
+    },
+  },
 };
 </script>
