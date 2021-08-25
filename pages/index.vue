@@ -23,7 +23,7 @@
     </v-card>
     <v-dialog v-model="dialog">
       <v-card>
-        <v-card-title> Are you sure you want to delete the card? </v-card-title>
+        <v-card-title> Are you sure you want to delete the deck? </v-card-title>
         <v-card-actions>
           <v-btn text @click="dialog = false">No</v-btn>
           <v-btn text @click="deleteDeck()">Yes</v-btn>
