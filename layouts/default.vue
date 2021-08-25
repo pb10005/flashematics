@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <Nuxt class="mb-2" />
+    <div class="mb80">
+      <Nuxt />
+    </div>
     <v-bottom-navigation app :value="value" color="primary">
       <v-btn @click="$router.push(`/`)">
         <span>Home</span>
@@ -19,4 +21,7 @@ export default {
 };
 </script>
 <style>
+.mb80 {
+  margin-bottom: 80px;
+}
 </style>
