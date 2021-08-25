@@ -20,13 +20,28 @@
         <v-btn @click="$router.push(`/card/edit?card=${item._id}`)" text
           >Edit</v-btn
         >
-        <v-btn @click="deleteCard(item)" text>Delete</v-btn>
+        <v-btn @click="openDeleteDialog(item)" text>Delete</v-btn>
       </v-card-actions>
     </v-card>
+    <v-dialog v-model="dialog">
+      <v-card>
+        <v-card-title> Are you sure you want to delete the card? </v-card-title>
+        <v-card-actions>
+          <v-btn text @click="dialog = false">No</v-btn>
+          <v-btn text @click="deleteCard()">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
 export default {
+  data() {
+    return {
+      dialog: false,
+      currentId: "",
+    };
+  },
   computed: {
     decks() {
       const decks = localStorage.getItem("decks");
@@ -37,19 +52,30 @@ export default {
       if (this.decks.length === 0) return { name: "none", description: "none" };
       return this.decks.find((x) => x._id === this.$route.query.deck);
     },
-    cardList() {
-      const cards = localStorage.getItem("cards");
-      if (!cards) return [];
-      return JSON.parse(cards).filter((x) => x.deck === this.$route.query.deck);
+    cardList: {
+      cache: false,
+      get() {
+        const cards = localStorage.getItem("cards");
+        if (!cards) return [];
+        return JSON.parse(cards).filter(
+          (x) => x.deck === this.$route.query.deck
+        );
+      },
     },
   },
   methods: {
-    deleteCard({ _id }) {
+    openDeleteDialog({ _id }) {
+      this.dialog = true;
+      this.currentId = _id;
+    },
+    deleteCard() {
       let cards = localStorage.getItem("cards");
       if (!cards) return;
       cards = JSON.parse(cards);
-      cards = cards.filter((x) => x._id !== _id);
+      cards = cards.filter((x) => x._id !== this.currentId);
       localStorage.setItem("cards", JSON.stringify(cards));
+      this.dialog = false;
+      this.currentId = "";
     },
   },
 };

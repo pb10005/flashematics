@@ -2,10 +2,14 @@
   <div>
     <v-btn icon @click="$router.go(-1)"><v-icon>mdi-arrow-left</v-icon></v-btn>
     <div>
-      <h2>Preview</h2>
-      <HeadCard @click="flip" v-show="isHead" :content="newCard.head" />
-      <TailCard @click="flip" v-show="!isHead" :content="newCard.tail" />
-      <v-btn color="success" block @click="flip">Flip</v-btn>
+      <v-subheader>Preview</v-subheader>
+      <div class="pa-1">
+        <HeadCard @click="flip" v-show="isHead" :content="newCard.head" />
+        <TailCard @click="flip" v-show="!isHead" :content="newCard.tail" />
+      </div>
+      <div class="pa-1">
+        <v-btn color="success" block @click="flip">Flip</v-btn>
+      </div>
       <v-textarea label="Head" v-model="newCard.head" />
       <v-textarea label="Tail" v-model="newCard.tail" />
       <v-btn @click="commit">Commit</v-btn>

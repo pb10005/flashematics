@@ -40,10 +40,7 @@ export default {
 
       localStorage.setItem("decks", JSON.stringify(decks));
 
-      this.newDeck = {
-        name: "",
-        description: "",
-      };
+      this.$router.push("/");
     },
   },
 };
