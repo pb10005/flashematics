@@ -25,6 +25,6 @@ export default {
   margin-bottom: 80px;
 }
 .auto-height {
-  height: auto;
+  height: auto !important;
 }
 </style>
