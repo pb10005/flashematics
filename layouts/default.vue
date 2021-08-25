@@ -4,7 +4,7 @@
       <Nuxt />
     </div>
     <v-bottom-navigation fixed grow :value="value" color="primary">
-      <v-btn @click="$router.push(`/`)">
+      <v-btn class="auto-height" @click="$router.push(`/`)">
         <span>Home</span>
         <v-icon>mdi-home</v-icon>
       </v-btn>
@@ -23,5 +23,8 @@ export default {
 <style>
 .mb80 {
   margin-bottom: 80px;
+}
+.auto-height {
+  height: auto;
 }
 </style>
