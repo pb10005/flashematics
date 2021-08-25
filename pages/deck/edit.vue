@@ -11,7 +11,7 @@
         >
       </v-card-actions>
     </v-card>
-    <v-card v-for="(item, index) in cardList" :key="index">
+    <v-card class="ma-1" v-for="(item, index) in cardList" :key="index">
       <v-card-text>
         <span>{{ item.head }}</span>
         <span>{{ item.tail }}</span>
