@@ -1,14 +1,9 @@
 <template>
   <v-app>
-    <Nuxt />
-    <v-bottom-navigation
-      app
-      :value="value"
-      color="primary"
-    >
+    <Nuxt class="mb-2" />
+    <v-bottom-navigation app :value="value" color="primary">
       <v-btn @click="$router.push(`/`)">
         <span>Home</span>
-
         <v-icon>mdi-home</v-icon>
       </v-btn>
     </v-bottom-navigation>
@@ -18,10 +13,10 @@
 export default {
   data() {
     return {
-      value: "home"
-    }
-  }
-}
+      value: "home",
+    };
+  },
+};
 </script>
 <style>
 </style>

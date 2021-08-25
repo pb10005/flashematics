@@ -4,6 +4,7 @@
       <v-card-title>
         {{ deck.name }}
       </v-card-title>
+      <v-card-subtitle>{{ deck.description }} </v-card-subtitle>
       <v-card-actions>
         <v-btn text @click="$router.push(`/card/add?deck=${$route.query.deck}`)"
           >Add Card</v-btn
@@ -16,7 +17,9 @@
         <span>{{ item.tail }}</span>
       </v-card-text>
       <v-card-actions>
-        <v-btn text>Edit</v-btn>
+        <v-btn @click="$router.push(`/card/edit?card=${item._id}`)" text
+          >Edit</v-btn
+        >
         <v-btn @click="deleteCard(item)" text>Delete</v-btn>
       </v-card-actions>
     </v-card>
@@ -31,7 +34,7 @@ export default {
       else return JSON.parse(decks);
     },
     deck() {
-      if (this.decks.length === 0) return { name: "none" };
+      if (this.decks.length === 0) return { name: "none", description: "none" };
       return this.decks.find((x) => x._id === this.$route.query.deck);
     },
     cardList() {
