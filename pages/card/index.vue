@@ -1,8 +1,12 @@
 <template>
   <div>
-    <HeadCard @click="flip" v-show="isHead" :content="currentCard.head" />
-    <TailCard @click="flip" v-show="!isHead" :content="currentCard.tail" />
-    <v-btn color="success" block @click="flip">Flip</v-btn>
+    <div class="pa-1">
+      <HeadCard @click="flip" v-show="isHead" :content="currentCard.head" />
+      <TailCard @click="flip" v-show="!isHead" :content="currentCard.tail" />
+    </div>
+    <div class="pa-1">
+      <v-btn color="success" block @click="flip">Flip</v-btn>
+    </div>
     <v-card class="d-flex justify-center pa-2" elevation="0">
       <v-btn @click="prev">Prev</v-btn>
       <p class="pa-2">{{ currentIndex + 1 }}/{{ deckLength }}</p>

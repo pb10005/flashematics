@@ -6,7 +6,7 @@
         <v-btn text @click="$router.push(`/deck/add`)">Add Deck</v-btn>
       </v-card-actions>
     </v-card>
-    <v-card v-for="(item, index) in decks" :key="index">
+    <v-card class="ma-1" v-for="(item, index) in decks" :key="index">
       <v-card-title>
         {{ item.name }}
       </v-card-title>

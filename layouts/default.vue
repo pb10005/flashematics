@@ -3,7 +3,7 @@
     <div class="mb80">
       <Nuxt />
     </div>
-    <v-bottom-navigation app :value="value" color="primary">
+    <v-bottom-navigation fixed grow :value="value" color="primary">
       <v-btn @click="$router.push(`/`)">
         <span>Home</span>
         <v-icon>mdi-home</v-icon>
