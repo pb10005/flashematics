@@ -6,6 +6,9 @@
       </v-card-title>
       <v-card-subtitle>{{ deck.description }} </v-card-subtitle>
       <v-card-actions>
+        <v-btn text @click="$router.push(`/card?deck=${$route.query.deck}`)"
+          >View</v-btn
+        >
         <v-btn text @click="$router.push(`/card/add?deck=${$route.query.deck}`)"
           >Add Card</v-btn
         >

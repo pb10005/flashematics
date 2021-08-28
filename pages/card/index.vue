@@ -1,12 +1,18 @@
 <template>
   <div>
-    <v-card>
+    <v-card notification dark color="primary">
       <v-card-title>{{ deckInfo.name }}</v-card-title>
-      <v-card-text v-if="base64Str">
-        <v-textarea disabled v-model="base64Str"> </v-textarea>
+      <v-card-text>
+        <span>{{ deckInfo.description }}</span>
+        <v-textarea v-if="base64Str" disabled v-model="base64Str"> </v-textarea>
       </v-card-text>
       <v-card-actions>
-        <v-btn text @click="exportDeck">Export</v-btn>
+        <v-btn
+          text
+          @click="$router.push(`/deck/edit?deck=${$route.query.deck}`)"
+          >Edit</v-btn
+        >
+        <v-btn text @click="exportDeck">Export deck</v-btn>
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
       </v-card-actions>
     </v-card>
@@ -37,9 +43,9 @@ export default {
   computed: {
     deckInfo() {
       const decks = localStorage.getItem("decks");
-      if (!decks) return { name: "none" };
+      if (!decks) return { name: "none", description: "none" };
       const d = JSON.parse(decks).find((x) => x._id === this.$route.query.deck);
-      return d || { name: "none" };
+      return d || { name: "none", description: "none" };
     },
     cards() {
       const cards = localStorage.getItem("cards");
