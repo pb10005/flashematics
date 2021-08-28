@@ -4,6 +4,7 @@
       <v-card-title>Flashematics</v-card-title>
       <v-card-actions>
         <v-btn text @click="$router.push(`/deck/add`)">Add Deck</v-btn>
+        <v-btn text @click="openImportDialog">Import Deck</v-btn>
       </v-card-actions>
     </v-card>
     <v-card class="ma-1" v-for="(item, index) in decks" :key="index">
@@ -18,7 +19,9 @@
         <v-btn text @click="$router.push(`/deck/edit?deck=${item._id}`)"
           >Edit</v-btn
         >
-        <v-btn text @click.stop="openDeleteDialog(item)">Delete</v-btn>
+        <v-btn text color="red" @click.stop="openDeleteDialog(item)"
+          >Delete</v-btn
+        >
       </v-card-actions>
     </v-card>
     <v-dialog v-model="dialog">
@@ -26,18 +29,33 @@
         <v-card-title> Are you sure you want to delete the deck? </v-card-title>
         <v-card-actions>
           <v-btn text @click="dialog = false">No</v-btn>
-          <v-btn text @click="deleteDeck()">Yes</v-btn>
+          <v-btn color="red" text @click="deleteDeck">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="importDialog">
+      <v-card>
+        <v-card-title>Import deck from Base64 text</v-card-title>
+        <v-card-text>
+          <v-textarea v-model="base64Str"></v-textarea>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn text @click="importDialog = false">No</v-btn>
+          <v-btn color="red" text @click="importDeck">Yes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
 <script>
+import { Buffer } from "buffer";
 export default {
   data() {
     return {
       currentId: "",
+      base64Str: "",
       dialog: false,
+      importDialog: false,
     };
   },
   computed: {
@@ -55,13 +73,43 @@ export default {
       this.dialog = true;
       this.currentId = _id;
     },
+    openImportDialog() {
+      this.importDialog = true;
+    },
+    importDeck() {
+      const txt = Buffer.from(this.base64Str, "base64").toString();
+      const data = JSON.parse(txt);
+
+      let decks = localStorage.getItem("decks");
+      if (!decks) return;
+      decks = JSON.parse(decks);
+      decks = decks.filter((x) => x._id !== data.deckInfo._id);
+      decks.push(data.deckInfo);
+      localStorage.setItem("decks", JSON.stringify(decks));
+
+      let cards = localStorage.getItem("cards");
+      if (!cards) return;
+      cards = JSON.parse(cards);
+
+      const cardIds = data.deck.map((x) => x._id);
+      cards = cards.filter((x) => cardIds.indexOf(x._id) < 0);
+      cards = [...cards, ...data.deck];
+      localStorage.setItem("cards", JSON.stringify(cards));
+    },
     deleteDeck() {
       let decks = localStorage.getItem("decks");
       if (!decks) return;
       decks = JSON.parse(decks);
       decks = decks.filter((x) => x._id !== this.currentId);
       localStorage.setItem("decks", JSON.stringify(decks));
-      this.dialog = false;
+
+      let cards = localStorage.getItem("cards");
+      if (!cards) return;
+      cards = JSON.parse(cards);
+      cards = cards.filter((x) => x.deck !== this.currentId);
+      localStorage.setItem("cards", JSON.stringify(cards));
+
+      this.importDialog = false;
       this.currentId = "";
     },
   },

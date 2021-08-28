@@ -1,5 +1,12 @@
 <template>
   <div>
+    <v-card>
+      <v-card-title>{{ deckInfo.name }}</v-card-title>
+      <v-card-text>{{ base64Str }}</v-card-text>
+      <v-card-actions>
+        <v-btn text @click="exportDeck">Export</v-btn>
+      </v-card-actions>
+    </v-card>
     <div class="pa-1">
       <HeadCard @click="flip" v-show="isHead" :content="currentCard.head" />
       <TailCard @click="flip" v-show="!isHead" :content="currentCard.tail" />
@@ -15,14 +22,22 @@
   </div>
 </template>
 <script>
+import { Buffer } from "buffer";
 export default {
   data() {
     return {
       currentIndex: 0,
+      base64Str: "",
       isHead: true,
     };
   },
   computed: {
+    deckInfo() {
+      const decks = localStorage.getItem("decks");
+      if (!decks) return { name: "none" };
+      const d = JSON.parse(decks).find((x) => x._id === this.$route.query.deck);
+      return d || { name: "none" };
+    },
     deck() {
       const cards = localStorage.getItem("cards");
       if (!cards) return [];
@@ -38,6 +53,14 @@ export default {
     },
   },
   methods: {
+    exportDeck() {
+      const deck = {
+        deckInfo: this.deckInfo,
+        deck: this.deck,
+      };
+      const deckStr = JSON.stringify(deck);
+      this.base64Str = Buffer.from(deckStr).toString("base64");
+    },
     flip() {
       this.isHead ^= true;
     },

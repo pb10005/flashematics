@@ -20,7 +20,7 @@
         <v-btn @click="$router.push(`/card/edit?card=${item._id}`)" text
           >Edit</v-btn
         >
-        <v-btn @click="openDeleteDialog(item)" text>Delete</v-btn>
+        <v-btn color="red" @click="openDeleteDialog(item)" text>Delete</v-btn>
       </v-card-actions>
     </v-card>
     <v-dialog v-model="dialog">
@@ -28,7 +28,7 @@
         <v-card-title> Are you sure you want to delete the card? </v-card-title>
         <v-card-actions>
           <v-btn text @click="dialog = false">No</v-btn>
-          <v-btn text @click="deleteCard()">Yes</v-btn>
+          <v-btn color="red" text @click="deleteCard()">Yes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
