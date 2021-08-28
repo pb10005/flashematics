@@ -2,7 +2,9 @@
   <div>
     <v-card>
       <v-card-title>{{ deckInfo.name }}</v-card-title>
-      <v-card-text>{{ base64Str }}</v-card-text>
+      <v-card-text v-if="base64Str">
+        <v-textarea disabled v-model="base64Str"> </v-textarea>
+      </v-card-text>
       <v-card-actions>
         <v-btn text @click="exportDeck">Export</v-btn>
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
