@@ -5,6 +5,7 @@
       <v-card-text>{{ base64Str }}</v-card-text>
       <v-card-actions>
         <v-btn text @click="exportDeck">Export</v-btn>
+        <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
       </v-card-actions>
     </v-card>
     <div class="pa-1">
@@ -38,25 +39,35 @@ export default {
       const d = JSON.parse(decks).find((x) => x._id === this.$route.query.deck);
       return d || { name: "none" };
     },
-    deck() {
+    cards() {
       const cards = localStorage.getItem("cards");
       if (!cards) return [];
       return JSON.parse(cards).filter((x) => x.deck === this.$route.query.deck);
     },
     deckLength() {
-      return this.deck.length;
+      return this.cards.length;
     },
     currentCard() {
-      if (this.deck.length === 0) return { head: "none", tail: "none" };
-      if (this.deck.length >= 1) return this.deck[this.currentIndex];
+      if (this.cards.length === 0) return { head: "none", tail: "none" };
+      if (this.cards.length >= 1) return this.cards[this.currentIndex];
       else return { head: "none", tail: "none" };
     },
   },
   methods: {
     exportDeck() {
       const deck = {
-        deckInfo: this.deckInfo,
-        deck: this.deck,
+        d: {
+          i: this.deckInfo._id,
+          n: this.deckInfo.name,
+          d: this.deckInfo.description,
+        },
+        c: this.cards.map((x) => {
+          return {
+            i: x._id,
+            h: x.head,
+            t: x.tail,
+          };
+        }),
       };
       const deckStr = JSON.stringify(deck);
       this.base64Str = Buffer.from(deckStr).toString("base64");
@@ -66,12 +77,12 @@ export default {
     },
     prev() {
       this.currentIndex--;
-      if (this.currentIndex < 0) this.currentIndex = this.deck.length - 1;
+      if (this.currentIndex < 0) this.currentIndex = this.cards.length - 1;
       this.isHead = true;
     },
     next() {
       this.currentIndex++;
-      if (this.currentIndex >= this.deck.length) this.currentIndex = 0;
+      if (this.currentIndex >= this.cards.length) this.currentIndex = 0;
       this.isHead = true;
     },
   },
