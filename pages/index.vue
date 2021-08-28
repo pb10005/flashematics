@@ -95,6 +95,7 @@ export default {
       cards = cards.filter((x) => cardIds.indexOf(x._id) < 0);
       cards = [...cards, ...data.deck];
       localStorage.setItem("cards", JSON.stringify(cards));
+      this.importDialog = false;
     },
     deleteDeck() {
       let decks = localStorage.getItem("decks");
@@ -109,7 +110,7 @@ export default {
       cards = cards.filter((x) => x.deck !== this.currentId);
       localStorage.setItem("cards", JSON.stringify(cards));
 
-      this.importDialog = false;
+      this.dialog = false;
       this.currentId = "";
     },
   },
