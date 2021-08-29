@@ -8,19 +8,19 @@
       </v-card-actions>
     </v-card>
     <v-card class="ma-1" v-for="(item, index) in decks" :key="index">
-      <v-card-title>
-        {{ item.name }}
-      </v-card-title>
+      <v-card-title> {{ item.name }}</v-card-title>
       <v-card-text>
         {{ item.description }}
       </v-card-text>
       <v-card-actions>
-        <v-btn text @click="$router.push(`/card?deck=${item._id}`)">View</v-btn>
-        <v-btn text @click="$router.push(`/deck/edit?deck=${item._id}`)"
-          >Edit</v-btn
+        <v-btn icon @click="$router.push(`/card?deck=${item._id}`)"
+          ><v-icon>mdi-cards-variant</v-icon></v-btn
         >
-        <v-btn text color="red" @click.stop="openDeleteDialog(item)"
-          >Delete</v-btn
+        <v-btn icon @click="$router.push(`/deck/list?deck=${item._id}`)"
+          ><v-icon>mdi-view-list</v-icon></v-btn
+        >
+        <v-btn icon color="red" @click.stop="openDeleteDialog(item)"
+          ><v-icon>mdi-delete</v-icon></v-btn
         >
       </v-card-actions>
     </v-card>
