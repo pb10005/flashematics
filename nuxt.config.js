@@ -29,7 +29,7 @@ export default {
     manifest: {
       name: "Flashematics",
       short_name: "Flashematics",
-      theme_color: "4a4a4a",
+      theme_color: "#4a4a4a",
       lang: "ja",
       display: "standalone"
     }
