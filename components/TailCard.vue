@@ -1,7 +1,6 @@
-
 <template>
   <v-card class="card">
-    <v-card-text>
+    <v-card-text class="multiline">
       <vue-mathjax class="formula" :formula="content"> </vue-mathjax>
     </v-card-text>
   </v-card>
@@ -45,5 +44,8 @@ export default {
 }
 .formula {
   font-size: 1.5rem;
+}
+.multiline {
+  white-space: pre-wrap;
 }
 </style>
