@@ -61,7 +61,7 @@ export default {
 
       localStorage.setItem("cards", JSON.stringify(cards));
 
-      this.$router.push(`/deck/edit?deck=${this.newCard.deck}`);
+      this.$router.push(`/deck/list?deck=${this.newCard.deck}`);
     },
     flip() {
       this.isHead ^= true;

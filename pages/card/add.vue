@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn icon @click="$router.push(`/deck/edit?deck=${$route.query.deck}`)"
+    <v-btn icon @click="$router.push(`/deck/list?deck=${$route.query.deck}`)"
       ><v-icon>mdi-arrow-left</v-icon></v-btn
     >
     <div>

@@ -8,9 +8,9 @@
       </v-card-text>
       <v-card-actions>
         <v-btn
-          text
-          @click="$router.push(`/deck/edit?deck=${$route.query.deck}`)"
-          >Edit</v-btn
+          icon
+          @click="$router.push(`/deck/list?deck=${$route.query.deck}`)"
+          ><v-icon>mdi-view-list</v-icon></v-btn
         >
         <v-btn text @click="exportDeck">Export deck</v-btn>
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
