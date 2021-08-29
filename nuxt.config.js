@@ -26,7 +26,6 @@ export default {
 
   buildModules: ['@nuxtjs/vuetify', '@nuxtjs/pwa'],
   pwa: {
-    icon: false,
     manifest: {
       name: 'Flashematics',
       lang: 'ja',
