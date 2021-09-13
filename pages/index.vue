@@ -142,7 +142,7 @@ export default {
       this.currentId = "";
     },
     downloadDeck() {
-      axios.get("http://192.168.2.11:30010/").then((data) => {
+      axios.get(this.url).then((data) => {
         alert(data);
       });
     },
