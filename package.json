@@ -17,6 +17,7 @@
   },
   "_id": "nuxt-starter@1.0.0",
   "dependencies": {
+    "axios": "0.21.4",
     "uuid": "8.3.2"
   },
   "keywords": [],

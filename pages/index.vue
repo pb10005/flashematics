@@ -5,6 +5,7 @@
       <v-card-actions>
         <v-btn text @click="$router.push(`/deck/add`)">Add Deck</v-btn>
         <v-btn text @click="openImportDialog">Import Deck</v-btn>
+        <v-btn text @click="openDownloadDialog">Download Deck</v-btn>
       </v-card-actions>
     </v-card>
     <v-card class="ma-1" v-for="(item, index) in decks" :key="index">
@@ -45,17 +46,32 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="downloadDialog">
+      <v-card>
+        <v-card-title>Download deck from the server</v-card-title>
+        <v-card-text>
+          <v-text-field label="Url" v-model="url"></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn text @click="downloadDialog = false">No</v-btn>
+          <v-btn color="red" text @click="downloadDeck">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
 import { Buffer } from "buffer";
+import axios from "axios";
 export default {
   data() {
     return {
       currentId: "",
       base64Str: "",
+      url: "",
       dialog: false,
       importDialog: false,
+      downloadDialog: false,
     };
   },
   computed: {
@@ -75,6 +91,9 @@ export default {
     },
     openImportDialog() {
       this.importDialog = true;
+    },
+    openDownloadDialog() {
+      this.downloadDialog = true;
     },
     importDeck() {
       try {
@@ -121,6 +140,11 @@ export default {
 
       this.dialog = false;
       this.currentId = "";
+    },
+    downloadDeck() {
+      axios.get("http://192.168.2.11:30010/").then((data) => {
+        alert(data);
+      });
     },
   },
 };
