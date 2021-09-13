@@ -96,7 +96,7 @@ export default {
       this.isHead = true;
     },
     uploadDeck() {
-      axios.post("localhost:3000/decks", {
+      axios.post("http://localhost:3000/decks", {
         name: "testtest",
         base64: "yes",
       });
