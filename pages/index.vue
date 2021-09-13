@@ -142,8 +142,8 @@ export default {
       this.currentId = "";
     },
     downloadDeck() {
-      axios.get(this.url).then((data) => {
-        alert(data);
+      axios.get(this.url).then((doc) => {
+        alert(doc.data);
       });
     },
   },

@@ -13,6 +13,7 @@
           ><v-icon>mdi-view-list</v-icon></v-btn
         >
         <v-btn text @click="exportDeck">Export deck</v-btn>
+        <v-btn text @click="uploadDeck">Upload deck</v-btn>
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
       </v-card-actions>
     </v-card>
@@ -32,6 +33,7 @@
 </template>
 <script>
 import { Buffer } from "buffer";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -92,6 +94,12 @@ export default {
       this.currentIndex++;
       if (this.currentIndex >= this.cards.length) this.currentIndex = 0;
       this.isHead = true;
+    },
+    uploadDeck() {
+      axios.post("localhost:3000/decks", {
+        name: "testtest",
+        base64: "yes",
+      });
     },
   },
 };
