@@ -5,7 +5,9 @@
       <v-card-actions>
         <v-btn text @click="$router.push(`/deck/add`)">Add Deck</v-btn>
         <v-btn text @click="openImportDialog">Import Deck</v-btn>
-        <v-btn text @click="openDownloadDialog">Download Deck</v-btn>
+        <v-btn icon @click="openDownloadDialog"
+          ><v-icon>mdi-download</v-icon></v-btn
+        >
       </v-card-actions>
     </v-card>
     <v-card class="ma-1" v-for="(item, index) in decks" :key="index">
@@ -95,9 +97,9 @@ export default {
     openDownloadDialog() {
       this.downloadDialog = true;
     },
-    importDeck() {
+    import(base64) {
       try {
-        const txt = Buffer.from(this.base64Str, "base64").toString();
+        const txt = Buffer.from(base64, "base64").toString();
         const data = JSON.parse(txt);
 
         let decks = localStorage.getItem("decks");
@@ -123,9 +125,13 @@ export default {
         cards = [...cards, ...impCards];
         localStorage.setItem("cards", JSON.stringify(cards));
       } catch (ex) {}
+    },
+    importDeck() {
+      this.import(this.base64Str);
       this.importDialog = false;
     },
     deleteDeck() {
+      this.dialog = false;
       let decks = localStorage.getItem("decks");
       if (!decks) return;
       decks = JSON.parse(decks);
@@ -138,13 +144,18 @@ export default {
       cards = cards.filter((x) => x.deck !== this.currentId);
       localStorage.setItem("cards", JSON.stringify(cards));
 
-      this.dialog = false;
       this.currentId = "";
     },
     downloadDeck() {
-      axios.get(this.url).then((doc) => {
-        alert(doc.data);
-      });
+      axios
+        .get(this.url)
+        .then((doc) => {
+          const base64 = doc.data.deck.base64;
+          this.import(base64);
+        })
+        .then(() => {
+          this.downloadDialog = false;
+        });
     },
   },
 };

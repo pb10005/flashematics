@@ -13,7 +13,7 @@
           ><v-icon>mdi-view-list</v-icon></v-btn
         >
         <v-btn text @click="exportDeck">Export deck</v-btn>
-        <v-btn text @click="uploadDeck">Upload deck</v-btn>
+        <v-btn icon @click="uploadDeck"><v-icon>mdi-upload</v-icon></v-btn>
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
       </v-card-actions>
     </v-card>
@@ -64,7 +64,7 @@ export default {
     },
   },
   methods: {
-    exportDeck() {
+    toBase64() {
       const deck = {
         d: {
           i: this.deckInfo._id,
@@ -80,7 +80,10 @@ export default {
         }),
       };
       const deckStr = JSON.stringify(deck);
-      this.base64Str = Buffer.from(deckStr).toString("base64");
+      return Buffer.from(deckStr).toString("base64");
+    },
+    exportDeck() {
+      this.base64Str = this.toBase64();
     },
     flip() {
       this.isHead ^= true;
@@ -97,8 +100,8 @@ export default {
     },
     uploadDeck() {
       axios.post("http://localhost:3000/decks", {
-        name: "testtest",
-        base64: "yes",
+        name: this.deckInfo._id,
+        base64: this.toBase64(),
       });
     },
   },

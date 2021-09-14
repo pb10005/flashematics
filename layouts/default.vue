@@ -8,6 +8,10 @@
         <span>Home</span>
         <v-icon>mdi-home</v-icon>
       </v-btn>
+      <v-btn class="auto-height" @click="$router.push(`/settings`)">
+        <span>Settings</span>
+        <v-icon>mdi-cog</v-icon>
+      </v-btn>
     </v-bottom-navigation>
   </v-app>
 </template>
