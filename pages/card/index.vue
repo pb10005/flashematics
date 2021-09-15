@@ -3,6 +3,9 @@
     <v-card notification dark color="primary">
       <v-card-title>{{ deckInfo.name }}</v-card-title>
       <v-card-text>
+        <v-subheader>ID</v-subheader>
+        <code>{{ $route.query.deck }}</code>
+        <v-subheader>Description</v-subheader>
         <span>{{ deckInfo.description }}</span>
         <v-textarea v-if="base64Str" disabled v-model="base64Str"> </v-textarea>
       </v-card-text>

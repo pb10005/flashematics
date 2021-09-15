@@ -65,6 +65,7 @@
 <script>
 import { Buffer } from "buffer";
 import axios from "axios";
+import path from "path";
 export default {
   data() {
     return {
@@ -147,8 +148,11 @@ export default {
       this.currentId = "";
     },
     downloadDeck() {
+      const svr = localStorage.getItem("serverUrl") || "";
+      if (!svr) return;
+
       axios
-        .get(this.url)
+        .get(path.join(svr, "decks", "get", this.url))
         .then((doc) => {
           const base64 = doc.data.deck.base64;
           this.import(base64);
