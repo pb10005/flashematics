@@ -30,8 +30,8 @@
         <v-btn icon @click="$router.push(`/card?deck=${$route.query.deck}`)"
           ><v-icon>mdi-cards-variant</v-icon></v-btn
         >
-        <v-btn text @click="$router.push(`/card/add?deck=${$route.query.deck}`)"
-          >Add Card</v-btn
+        <v-btn icon @click="$router.push(`/card/add?deck=${$route.query.deck}`)"
+          ><v-icon>mdi-shape-rectangle-plus</v-icon></v-btn
         >
       </v-card-actions>
     </v-card>

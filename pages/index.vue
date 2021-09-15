@@ -3,8 +3,12 @@
     <v-card notification color="primary" dark>
       <v-card-title>Flashematics</v-card-title>
       <v-card-actions>
-        <v-btn text @click="$router.push(`/deck/add`)">Add Deck</v-btn>
-        <v-btn text @click="openImportDialog">Import Deck</v-btn>
+        <v-btn icon @click="$router.push(`/deck/add`)"
+          ><v-icon>mdi-plus</v-icon></v-btn
+        >
+        <v-btn icon @click="openImportDialog"
+          ><v-icon>mdi-import</v-icon></v-btn
+        >
         <v-btn icon @click="openDownloadDialog"
           ><v-icon>mdi-download</v-icon></v-btn
         >

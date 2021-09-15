@@ -15,7 +15,7 @@
           @click="$router.push(`/deck/list?deck=${$route.query.deck}`)"
           ><v-icon>mdi-view-list</v-icon></v-btn
         >
-        <v-btn text @click="exportDeck">Export deck</v-btn>
+        <v-btn icon @click="exportDeck"><v-icon>mdi-export</v-icon></v-btn>
         <v-btn icon @click="uploadDeck"><v-icon>mdi-upload</v-icon></v-btn>
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
       </v-card-actions>
