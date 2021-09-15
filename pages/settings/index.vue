@@ -1,10 +1,12 @@
 <template>
   <div>
     <v-btn icon @click="$router.go(-1)"><v-icon>mdi-arrow-left</v-icon></v-btn>
-    <v-subheader>Settings</v-subheader>
-    <label>Server URL</label>
-    <v-text-field label="Url" v-model="serverUrl"></v-text-field>
-    <v-btn @click="save">Save</v-btn>
+    <v-container app>
+      <v-subheader>Settings</v-subheader>
+      <label>Server URL</label>
+      <v-text-field label="Url" v-model="serverUrl"></v-text-field>
+      <v-btn @click="save">Save</v-btn>
+    </v-container>
   </div>
 </template>
 <script>

@@ -3,12 +3,12 @@
     <v-btn icon @click="$router.push(`/`)"
       ><v-icon>mdi-arrow-left</v-icon></v-btn
     >
-    <div>
+    <v-container app>
       <v-subheader>Add deck</v-subheader>
       <v-text-field label="name" v-model="newDeck.name"></v-text-field>
       <v-textarea label="description" v-model="newDeck.description" />
       <v-btn @click="addDeck">Create</v-btn>
-    </div>
+    </v-container>
   </div>
 </template>
 <script>
