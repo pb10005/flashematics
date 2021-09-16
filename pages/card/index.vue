@@ -103,7 +103,7 @@ export default {
       const svr = localStorage.getItem("serverUrl") || "";
       if (!svr) return;
 
-      axios.post(new URL(`/decks/get/${this.url}`, svr).href, {
+      axios.post(new URL(`/decks`, svr).href, {
         name: this.deckInfo._id,
         base64: this.toBase64(),
       });
