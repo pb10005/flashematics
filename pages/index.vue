@@ -69,7 +69,6 @@
 <script>
 import { Buffer } from "buffer";
 import axios from "axios";
-import path from "path";
 export default {
   data() {
     return {
@@ -156,7 +155,7 @@ export default {
       if (!svr) return;
 
       axios
-        .get(path.join(svr, "decks", "get", this.url))
+        .get(new URL(`/decks/get/${this.url}`, svr).href)
         .then((doc) => {
           const base64 = doc.data.deck.base64;
           this.import(base64);

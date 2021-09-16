@@ -100,7 +100,10 @@ export default {
       this.isHead = true;
     },
     uploadDeck() {
-      axios.post("http://localhost:3000/decks", {
+      const svr = localStorage.getItem("serverUrl") || "";
+      if (!svr) return;
+
+      axios.post(new URL(`/decks/get/${this.url}`, svr).href, {
         name: this.deckInfo._id,
         base64: this.toBase64(),
       });
