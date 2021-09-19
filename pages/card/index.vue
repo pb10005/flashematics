@@ -14,7 +14,9 @@
           ><v-icon>mdi-view-list</v-icon></v-btn
         >
         <v-btn icon @click="exportDeck"><v-icon>mdi-export</v-icon></v-btn>
-        <v-btn icon @click="uploadDeck"><v-icon>mdi-upload</v-icon></v-btn>
+        <v-btn icon @click="openUploadDialog"
+          ><v-icon>mdi-upload</v-icon></v-btn
+        >
         <v-btn text v-if="base64Str" @click="base64Str = ''">Clear</v-btn>
       </v-card-actions>
     </v-card>
@@ -30,6 +32,23 @@
       <p class="pa-2">{{ currentIndex + 1 }}/{{ deckLength }}</p>
       <v-btn @click="next">Next</v-btn>
     </v-card>
+
+    <v-dialog v-model="uploadDialog">
+      <v-card>
+        <v-card-title>Upload Deck to the server(Online Mode)</v-card-title>
+        <v-card-text>
+          <p>
+            Are you sure you want to upload this deck? You have to
+            <nuxt-link to="/settings">configure an endpoint of API</nuxt-link>
+            before you can use online mode.
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn text @click="uploadDialog = false">No</v-btn>
+          <v-btn color="red" text @click="uploadDeck">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
@@ -41,6 +60,7 @@ export default {
       currentIndex: 0,
       base64Str: "",
       isHead: true,
+      uploadDialog: false,
     };
   },
   computed: {
@@ -99,14 +119,21 @@ export default {
       if (this.currentIndex >= this.cards.length) this.currentIndex = 0;
       this.isHead = true;
     },
+    openUploadDialog() {
+      this.uploadDialog = true;
+    },
     uploadDeck() {
       const svr = localStorage.getItem("serverUrl") || "";
       if (!svr) return;
 
-      axios.post(new URL(`/decks`, svr).href, {
-        name: this.deckInfo._id,
-        base64: this.toBase64(),
-      });
+      axios
+        .post(new URL(`/decks`, svr).href, {
+          name: this.deckInfo._id,
+          base64: this.toBase64(),
+        })
+        .then(() => {
+          this.uploadDeck = false;
+        });
     },
   },
 };

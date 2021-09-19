@@ -59,7 +59,7 @@
           <p>
             Specify the deck ID you want to download. You have to
             <nuxt-link to="/settings">configure an endpoint of API</nuxt-link>
-            before you use online mode.
+            before you can use online mode.
           </p>
           <v-text-field label="ID" v-model="url"></v-text-field>
         </v-card-text>
