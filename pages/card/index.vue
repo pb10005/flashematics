@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container app>
     <v-card notification dark color="primary">
       <v-card-title>{{ deckInfo.name }}</v-card-title>
       <v-card-text>
@@ -30,7 +30,7 @@
       <p class="pa-2">{{ currentIndex + 1 }}/{{ deckLength }}</p>
       <v-btn @click="next">Next</v-btn>
     </v-card>
-  </div>
+  </v-container>
 </template>
 <script>
 import { Buffer } from "buffer";

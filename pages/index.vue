@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container app>
     <v-card notification color="primary" dark>
       <v-card-title>Flashematics</v-card-title>
       <v-card-actions>
@@ -69,7 +69,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 <script>
 import { Buffer } from "buffer";

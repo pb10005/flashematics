@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container app>
     <v-card notification dark color="primary">
       <v-card-title>
         <v-text-field
@@ -58,7 +58,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 <script>
 export default {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn icon @click="$router.go(-1)"><v-icon>mdi-arrow-left</v-icon></v-btn>
-    <div>
+    <v-container app>
       <v-subheader>Preview</v-subheader>
       <div class="pa-1">
         <HeadCard @click="flip" v-show="isHead" :content="newCard.head" />
@@ -12,8 +12,9 @@
       </div>
       <v-textarea label="Head" v-model="newCard.head" />
       <v-textarea label="Tail" v-model="newCard.tail" />
-      <v-btn @click="commit">Commit</v-btn>
-    </div>
+      <v-btn text @click="$router.go(-1)">Cancel</v-btn>
+      <v-btn text @click="commit" color="red">Commit</v-btn>
+    </v-container>
   </div>
 </template>
 <script>
