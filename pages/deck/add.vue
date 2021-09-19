@@ -4,10 +4,11 @@
       ><v-icon>mdi-arrow-left</v-icon></v-btn
     >
     <v-container app>
-      <v-subheader>Add deck</v-subheader>
+      <v-card-title>Add a new deck</v-card-title>
       <v-text-field label="name" v-model="newDeck.name"></v-text-field>
       <v-textarea label="description" v-model="newDeck.description" />
-      <v-btn @click="addDeck">Create</v-btn>
+      <v-btn text @click="$router.go(-1)">Cancel</v-btn>
+      <v-btn text @click="addDeck" color="red">Create</v-btn>
     </v-container>
   </div>
 </template>

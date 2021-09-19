@@ -47,20 +47,25 @@
           <v-textarea v-model="base64Str"></v-textarea>
         </v-card-text>
         <v-card-actions>
-          <v-btn text @click="importDialog = false">No</v-btn>
-          <v-btn color="red" text @click="importDeck">Yes</v-btn>
+          <v-btn text @click="importDialog = false">Cancel</v-btn>
+          <v-btn color="red" text @click="importDeck">Import</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-dialog v-model="downloadDialog">
       <v-card>
-        <v-card-title>Download deck from the server</v-card-title>
+        <v-card-title>Download deck from the server(Online Mode)</v-card-title>
         <v-card-text>
-          <v-text-field label="Url" v-model="url"></v-text-field>
+          <p>
+            Specify the deck ID you want to download. You have to
+            <nuxt-link to="/settings">configure an endpoint of API</nuxt-link>
+            before you use online mode.
+          </p>
+          <v-text-field label="ID" v-model="url"></v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-btn text @click="downloadDialog = false">No</v-btn>
-          <v-btn color="red" text @click="downloadDeck">Yes</v-btn>
+          <v-btn text @click="downloadDialog = false">Cancel</v-btn>
+          <v-btn color="red" text @click="downloadDeck">Download</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
