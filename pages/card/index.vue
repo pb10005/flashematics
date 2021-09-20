@@ -90,7 +90,7 @@ export default {
         d: {
           i: this.deckInfo._id,
           n: this.deckInfo.name,
-          d: this.deckInfo.description,
+          d: this.deckInfo.description
         },
         c: this.cards.map((x) => {
           return {
@@ -130,6 +130,7 @@ export default {
         .post(new URL(`/decks`, svr).href, {
           name: this.deckInfo._id,
           base64: this.toBase64(),
+          updatedAt: this.deckInfo.updatedAt,
         })
         .then(() => {
           this.uploadDeck = false;

@@ -1,5 +1,10 @@
 export default {
   // target: 'static',
+  server: {
+    port: 9000, 
+    host: '0.0.0.0',
+    timing: false
+  },
   ssr: false,
   head: {
     title: "flashematics",

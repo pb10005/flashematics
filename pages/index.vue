@@ -106,7 +106,7 @@ export default {
     openDownloadDialog() {
       this.downloadDialog = true;
     },
-    import(base64) {
+    import(base64, updatedAt) {
       try {
         const txt = Buffer.from(base64, "base64").toString();
         const data = JSON.parse(txt);
@@ -119,6 +119,7 @@ export default {
           _id: data.d.i,
           name: data.d.n,
           description: data.d.d,
+          updatedAt: updatedAt
         });
         localStorage.setItem("decks", JSON.stringify(decks));
 
@@ -136,7 +137,7 @@ export default {
       } catch (ex) {}
     },
     importDeck() {
-      this.import(this.base64Str);
+      this.import(this.base64Str, null);
       this.importDialog = false;
     },
     deleteDeck() {
@@ -163,7 +164,8 @@ export default {
         .get(new URL(`/decks/get/${this.url}`, svr).href)
         .then((doc) => {
           const base64 = doc.data.deck.base64;
-          this.import(base64);
+          const updatedAt = doc.data.deck.updated_at;
+          this.import(base64, updatedAt);
         })
         .then(() => {
           this.downloadDialog = false;
