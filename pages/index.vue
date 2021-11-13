@@ -74,6 +74,7 @@
 <script>
 import { Buffer } from "buffer";
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -159,12 +160,14 @@ export default {
     downloadDeck() {
       const svr = localStorage.getItem("serverUrl") || "";
       if (!svr) return;
-
       axios
-        .get(new URL(`/decks/get/${this.url}`, svr).href)
+        // .get(new URL(`/decks/get/${this.url}`, svr).href)
+        .get(new URL(`/api/DeckItems/${this.url}`, svr).href)
         .then((doc) => {
-          const base64 = doc.data.deck.base64;
-          const updatedAt = doc.data.deck.updated_at;
+          const base64 = doc.data.base64;
+          const updatedAt = doc.data.updatedAt;
+          // const base64 = doc.data.deck.base64;
+          // const updatedAt = doc.data.deck.updated_at;
           this.import(base64, updatedAt);
         })
         .then(() => {

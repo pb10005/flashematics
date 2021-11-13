@@ -127,7 +127,8 @@ export default {
       if (!svr) return;
 
       axios
-        .post(new URL(`/decks`, svr).href, {
+        // .post(new URL(`/decks`, svr).href, {
+        .post(new URL(`/api/DeckItems`, svr).href, {
           name: this.deckInfo._id,
           base64: this.toBase64(),
           updatedAt: this.deckInfo.updatedAt,
