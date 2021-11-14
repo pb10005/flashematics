@@ -133,8 +133,25 @@ export default {
           base64: this.toBase64(),
           updatedAt: this.deckInfo.updatedAt,
         })
-        .then(() => {
-          this.uploadDeck = false;
+        .then((doc) => {
+          let decks = localStorage.getItem("decks");
+          decks = JSON.parse(decks);
+
+          const sentData = decks.find(x => x._id === this.deckInfo._id);
+          decks = decks.filter((x) => x._id !== this.deckInfo._id);
+          
+          decks.push({
+            _id: sentData._id,
+            name: sentData.name,
+            base64: sentData.base64,
+            updatedAt: doc.data.updatedAt
+          });
+          localStorage.setItem("decks", JSON.stringify(decks));
+
+          this.uploadDialog = false;
+        })
+        .catch((err) => {
+          alert(err.message);
         });
     },
   },

@@ -116,6 +116,7 @@ export default {
         if (!decks) return;
         decks = JSON.parse(decks);
         decks = decks.filter((x) => x._id !== data.d.i);
+
         decks.push({
           _id: data.d.i,
           name: data.d.n,
