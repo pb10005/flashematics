@@ -13,6 +13,7 @@
     "@nuxtjs/vuetify": "1.12.1",
     "core-js": "^3.16.2",
     "nuxt": "^2.15.3",
+    "nuxt-vite": "^0.3.5",
     "vue-mathjax": "0.0.11"
   },
   "_id": "nuxt-starter@1.0.0",
