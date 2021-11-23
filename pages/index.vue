@@ -139,7 +139,7 @@ export default {
       } catch (ex) {}
     },
     importDeck() {
-      this.import(this.base64Str, null);
+      this.import(this.base64Str, new Date());
       this.importDialog = false;
     },
     deleteDeck() {

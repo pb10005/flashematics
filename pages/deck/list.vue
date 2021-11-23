@@ -36,9 +36,11 @@
       </v-card-actions>
     </v-card>
     <v-card class="ma-1" v-for="(item, index) in cardList" :key="index">
+      <v-card-title>
+        {{ item.head }}
+      </v-card-title>
       <v-card-text>
-        <span>{{ item.head }}</span>
-        <span>{{ item.tail }}</span>
+        {{ item.tail }}
       </v-card-text>
       <v-card-actions>
         <v-btn @click="$router.push(`/card/edit?card=${item._id}`)" icon
