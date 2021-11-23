@@ -17,7 +17,8 @@
     <v-card class="ma-1" v-for="(item, index) in decks" :key="index">
       <v-card-title> {{ item.name }}</v-card-title>
       <v-card-text>
-        {{ item.description }}
+        <code>{{item._id}}</code>
+        <br>{{ item.description }}
       </v-card-text>
       <v-card-actions>
         <v-btn icon @click="$router.push(`/card?deck=${item._id}`)"
