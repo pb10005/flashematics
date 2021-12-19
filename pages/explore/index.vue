@@ -54,9 +54,12 @@ export default {
         const data = JSON.parse(txt);
 
         let decks = localStorage.getItem("decks");
-        if (!decks) return;
-        decks = JSON.parse(decks);
-        decks = decks.filter((x) => x._id !== data.d.i);
+        if (!decks) {
+          decks = [];
+        } else {
+          decks = JSON.parse(decks);
+          decks = decks.filter((x) => x._id !== data.d.i);
+        }
 
         decks.push({
           _id: data.d.i,
@@ -67,8 +70,11 @@ export default {
         localStorage.setItem("decks", JSON.stringify(decks));
 
         let cards = localStorage.getItem("cards");
-        if (!cards) return;
-        cards = JSON.parse(cards);
+        if (!cards) {
+          cards = [];
+        } else {
+          cards = JSON.parse(cards);
+        }
 
         const cardIds = data.c.map((x) => x.i);
         cards = cards.filter((x) => cardIds.indexOf(x._id) < 0);
